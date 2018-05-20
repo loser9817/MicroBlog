@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loser.dao.Contentdao">
+    <select id="queryContentById" resultType="com.loser.entity.BlogContent" parameterType="int">
+        SELECT
+          c.id,
+          c.content,
+          c.create_time,
+          i.id "blog_img.id",
+          i.img "blog_img.img",
+          cm.id "blog_comment.id",
+          cm.comment "blog_comment.comment",
+          cm.create_time "blog_comment.createTime",
+          u.username "user.username",
+          u.head "user.head"
+        FROM
+          blog_content c,
+          blog_img i,
+          blog_comment cm,
+          user u
+        WHERE
+          c.id = i.content_id
+            AND
+            c.id = cm.user_id
+              AND
+              c.user_id = u.id
+    </select>
+
+    <!--<select id="queryPasswordById" resultType="String" parameterType="int">-->
+    <!--SELECT-->
+    <!--password-->
+    <!--FROM-->
+    <!--user-->
+    <!--WHERE-->
+    <!--id = #{id}-->
+    <!--</select>-->
+
+    <!--<insert id="addUser" parameterType="com.loser.entity.User">-->
+    <!--INSERT INTO user-->
+    <!--(username,-->
+    <!--password)-->
+    <!--VALUES (-->
+    <!--#{username},-->
+    <!--#{password})-->
+    <!--</insert>-->
+</mapper>

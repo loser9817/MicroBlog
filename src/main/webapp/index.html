@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <title>index</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        // $(function () {
+        //
+        //     var usn = $("#usn").val();
+        //     var psw = $("#psw").val();
+        //
+        //     $("#btn").click(function () {
+        //         console.log("isclick");
+        //         $.post("/MicroBlog/" + usn + "/" + psw + "/doLogin", {}, {});
+        //     })
+        // });
+    </script>
+</head>
+
+<body>
+
+<form action="/MicroBlog/login" method="post">
+<input type="text" id="usn" name="username" value="admin"><br>
+<input type="password" id="psw" name="password" value="admin"><br>
+<input id="btn" type="submit" value="login"/><br>
+</form>
+<a href="/MicroBlog/register"><input type="submit" value="register"/></a>
+
+</body>
+</html>
