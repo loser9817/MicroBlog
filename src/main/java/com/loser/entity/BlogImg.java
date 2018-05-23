@@ -29,4 +29,13 @@ public class BlogImg {
     public void setContentId(int contentId) {
         this.contentId = contentId;
     }
+
+    @Override
+    public String toString() {
+        return "BlogImg{" +
+                "id=" + id +
+                ", img='" + img + '\'' +
+                ", contentId=" + contentId +
+                '}';
+    }
 }

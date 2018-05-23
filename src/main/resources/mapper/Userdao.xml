@@ -29,4 +29,14 @@
         #{username},
         #{password})
     </insert>
+
+    <select id="queryUserById" parameterType="int" resultType="com.loser.entity.User">
+        SELECT
+          username,
+          head
+        FROM
+          user
+        WHERE
+          id = #{id}
+    </select>
 </mapper>

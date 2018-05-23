@@ -16,6 +16,11 @@ public class User {
     private String sex;
     private Date birthday;
     private String intro;
+    private Date createTime;
+    private String head;
+
+    public User() {
+    }
 
     public User(String username, String password) {
         this.username = username;
@@ -96,4 +101,35 @@ public class User {
         this.intro = intro;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", id=" + id +
+                ", realname='" + realname + '\'' +
+                ", address='" + address + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birthday=" + birthday +
+                ", intro='" + intro + '\'' +
+                ", createTime=" + createTime +
+                ", head='" + head + '\'' +
+                '}';
+    }
 }

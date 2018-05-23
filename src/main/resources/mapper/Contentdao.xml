@@ -3,46 +3,84 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.loser.dao.Contentdao">
-    <select id="queryContentById" resultType="com.loser.entity.BlogContent" parameterType="int">
+    <select id="queryContentById" resultType="com.loser.dto.Blog" parameterType="int">
         SELECT
-          c.id,
-          c.content,
-          c.create_time,
-          i.id "blog_img.id",
-          i.img "blog_img.img",
-          cm.id "blog_comment.id",
-          cm.comment "blog_comment.comment",
-          cm.create_time "blog_comment.createTime",
+          u.id "user.id",
           u.username "user.username",
-          u.head "user.head"
+          u.head "user.head",
+          c.id "blogContent.id",
+          c.content "blogContent.content",
+          c.create_time "blogContent.createTime",
+          c.user_id "blogContent.userId"
         FROM
           blog_content c,
-          blog_img i,
-          blog_comment cm,
           user u
         WHERE
-          c.id = i.content_id
-            AND
-            c.id = cm.user_id
-              AND
-              c.user_id = u.id
+          c.user_id=u.id AND c.id = #{id}
     </select>
 
-    <!--<select id="queryPasswordById" resultType="String" parameterType="int">-->
-    <!--SELECT-->
-    <!--password-->
-    <!--FROM-->
-    <!--user-->
-    <!--WHERE-->
-    <!--id = #{id}-->
-    <!--</select>-->
+    <select id="queryImgByContentId" parameterType="int" resultType="com.loser.entity.BlogImg">
+        SELECT
+          id,
+          img,
+          content_id
+        FROM
+          blog_img
+        WHERE
+          content_id = #{id}
+    </select>
 
-    <!--<insert id="addUser" parameterType="com.loser.entity.User">-->
-    <!--INSERT INTO user-->
-    <!--(username,-->
-    <!--password)-->
-    <!--VALUES (-->
-    <!--#{username},-->
-    <!--#{password})-->
-    <!--</insert>-->
+    <select id="queryCommentByContentId" parameterType="int" resultType="com.loser.entity.BlogComment">
+        SELECT
+          cm.id,
+          cm.comment,
+          cm.create_time,
+          cm.content_id,
+          cm.user_id,
+          u.id,
+          u.username,
+          u.head
+          FROM blog_comment cm,user u WHERE cm.user_id=u.id AND cm.content_id=#{id}
+    </select>
+
+    <select id="queryAllContentAndUser" resultType="com.loser.dto.Blog">
+        SELECT
+          u.id "user.id",
+          u.username "user.username",
+          u.head "user.head",
+          c.id "blogcontent.id",
+          c.content "blogcontent.content",
+          c.create_time "blogcontent.createTime"
+        FROM
+          blog_content c,
+          USER u
+        WHERE
+          c.user_id = u.id
+    </select>
+
+    <select id="queryCommentCountByContentId" resultType="int" parameterType="int">
+        SELECT
+          COUNT(id)
+        FROM
+          blog_comment
+        WHERE
+          content_id = #{id}
+    </select>
+
+    <select id="queryLikeCountByContentId" resultType="int" parameterType="int">
+        SELECT
+        COUNT(id)
+        FROM
+        blog_like
+        WHERE
+        content_id = #{id}
+    </select>
+
+
+    <insert id="addBlog">
+        INSERT
+            INTO
+              blog_content(content, user_id)
+            VALUES(#{content}, #{userId})
+    </insert>
 </mapper>

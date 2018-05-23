@@ -15,6 +15,12 @@ public interface Userdao {
     String queryPasswordById(int id);
 
     //注册用户
-    void addUser(User user);
+    void addUser(User user);//TODO 改void为int
+
+    //更改用户信息
+    int setUser(User user);
+
+    //根据id查询用户名和头像
+    User queryUserById(int id);
 
 }

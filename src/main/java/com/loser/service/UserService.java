@@ -16,11 +16,11 @@ public class UserService {
     public LoginStateEnum doLogin(String usn, String psw) {
         String password = userdao.queryPasswordByName(usn);
         if (password == null) {
-            return LoginStateEnum.UNDEFINED;
+            return LoginStateEnum.USER_UNDEFINED;
         } else if (!password.equals(psw)) {
-            return LoginStateEnum.ERROR;
+            return LoginStateEnum.PASSWORD_ERROR;
         }
-        return LoginStateEnum.SUCCESS;
+        return LoginStateEnum.LOGIN_SUCCESS;
     }
 
     public RegisterStateEnum doRegister(User user) {
@@ -28,13 +28,13 @@ public class UserService {
         String username = user.getUsername();
         String password = user.getPassword();
         if (username == null && password == null) {
-            return RegisterStateEnum.ERROR;
+            return RegisterStateEnum.INFO_ERROR;
         }
         String psw = userdao.queryPasswordByName(username);
         if (psw!=null){
-            return RegisterStateEnum.EXISTS;
+            return RegisterStateEnum.USER_EXISTS;
         }
         userdao.addUser(user);
-        return RegisterStateEnum.SUCCESS;
+        return RegisterStateEnum.REGISTER_SUCCESS;
     }
 }

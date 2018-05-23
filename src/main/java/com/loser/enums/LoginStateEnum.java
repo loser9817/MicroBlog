@@ -1,9 +1,9 @@
 package com.loser.enums;
 
 public enum LoginStateEnum {
-    UNDEFINED(0,"用户未注册"),
-    ERROR(1,"密码错误"),
-    SUCCESS(2,"登录成功");
+    USER_UNDEFINED(0,"用户未注册"),
+    PASSWORD_ERROR(1,"密码错误"),
+    LOGIN_SUCCESS(2,"登录成功");
 
     private int state;
     private String info;
