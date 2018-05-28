@@ -12,15 +12,6 @@
         username = #{username}
     </select>
 
-    <select id="queryPasswordById" resultType="String" parameterType="int">
-        SELECT
-        password
-        FROM
-        user
-        WHERE
-        id = #{id}
-    </select>
-
     <insert id="addUser" parameterType="com.loser.entity.User">
         INSERT INTO user
         (username,
@@ -30,13 +21,45 @@
         #{password})
     </insert>
 
-    <select id="queryUserById" parameterType="int" resultType="com.loser.entity.User">
+    <select id="queryUseInforById" parameterType="int" resultType="com.loser.entity.User">
         SELECT
+          id,
           username,
+          realname,
+          address,
+          birthday,
+          sex,
+          intro,
           head
         FROM
           user
         WHERE
           id = #{id}
     </select>
+
+
+    <!--//IGNORE 表示update语句无法执行时spring不报错，正常执行返回1否则返回0-->
+    <update id="setUserInfoById" parameterType="com.loser.entity.User" >
+        UPDATE IGNORE
+          user
+        SET
+          username = #{username},
+          password = #{password},
+          realname = #{realname},
+          address = #{address},
+          birthday = #{birthday},
+          sex = #{sex}
+        WHERE
+          id = #{id}
+    </update>
+
+    <update id="setUserIntroById">
+        UPDATE IGNORE
+          user
+        SET
+          intro = #{intro}
+        WHERE
+          id = #{id}
+    </update>
+
 </mapper>

@@ -37,6 +37,15 @@ public class User {
         this.intro = intro;
     }
 
+    public User(int id, String username, String realname, String address, String sex, Date birthday) {
+        this.id = id;
+        this.username = username;
+        this.realname = realname;
+        this.address = address;
+        this.sex = sex;
+        this.birthday = birthday;
+    }
+
     public String getUsername() {
         return username;
     }

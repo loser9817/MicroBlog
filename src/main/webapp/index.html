@@ -19,12 +19,19 @@
 
 <body>
 
-<form action="/MicroBlog/login" method="post">
-<input type="text" id="usn" name="username" value="admin"><br>
-<input type="password" id="psw" name="password" value="admin"><br>
-<input id="btn" type="submit" value="login"/><br>
+<!--<form action="/MicroBlog/login" method="post">-->
+<!--<input type="text" id="usn" name="username" value="admin"><br>-->
+<!--<input type="password" id="psw" name="password" value="admin"><br>-->
+<!--<input id="btn" type="submit" value="login"/><br>-->
+<!--</form>-->
+<!--<a href="/MicroBlog/register"><input type="submit" value="register"/></a>-->
+
+<form action="/MicroBlog/user/13/head" method="post" enctype="multipart/form-data">
+
+    <input type="file" name="flie">
+    <input type="submit" name="上传图片">
+
 </form>
-<a href="/MicroBlog/register"><input type="submit" value="register"/></a>
 
 </body>
 </html>

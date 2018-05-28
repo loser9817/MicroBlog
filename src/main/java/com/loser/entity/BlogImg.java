@@ -34,7 +34,7 @@ public class BlogImg {
     public String toString() {
         return "BlogImg{" +
                 "id=" + id +
-                ", img='" + img + '\'' +
+                ", head='" + img + '\'' +
                 ", contentId=" + contentId +
                 '}';
     }

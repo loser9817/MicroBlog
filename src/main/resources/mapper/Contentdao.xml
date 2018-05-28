@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.loser.dao.Contentdao">
+<mapper namespace="com.loser.dao.Blogdao">
     <select id="queryContentById" resultType="com.loser.dto.Blog" parameterType="int">
         SELECT
           u.id "user.id",
@@ -22,7 +22,7 @@
     <select id="queryImgByContentId" parameterType="int" resultType="com.loser.entity.BlogImg">
         SELECT
           id,
-          img,
+          head,
           content_id
         FROM
           blog_img
@@ -83,4 +83,26 @@
               blog_content(content, user_id)
             VALUES(#{content}, #{userId})
     </insert>
+
+    <select id="queryLikeById" parameterType="int" resultType="int">
+        SELECT
+          COUNT(id)
+        FROM
+          blog_like
+        WHERE
+          user_id = #{userId} AND content_id = #{contentId}
+    </select>
+    <insert id="likeBlog">
+        INSERT IGNORE
+            INTO
+              blog_like(content_id, user_id)
+            VALUES(#{contentId}, #{userId})
+    </insert>
+    <delete id="deleteLike">
+        DELETE
+        FROM
+          blog_like
+        WHERE
+          user_id = #{userId} AND content_id = #{contentId}
+    </delete>
 </mapper>

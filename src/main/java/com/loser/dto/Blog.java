@@ -70,7 +70,7 @@ public class Blog {
         return "Blog{" +
                 "user=" + user +
                 ", blogContent=" + blogContent +
-                ", img=" + img +
+                ", head=" + img +
                 ", blogComment=" + blogComment +
                 ", commentCount=" + commentCount +
                 ", likeCount=" + likeCount +
