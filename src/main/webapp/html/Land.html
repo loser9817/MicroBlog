@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登陆</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../B.ico">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/Land.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript">
+        //运用Ajax发送账号密码到数据库确认是否正确
+        $(function () {
+            $("#login").click(function () {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                if (username == "" || username == " ") {
+                    $("#myP1").html("账号不能为空");
+                    return;
+                }
+                if (password == "" || password == " ") {
+                    $("#myP1").html("密码不能为空");
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/MicroBlog/login",
+                    data: {
+                        username: $("#username").val(),
+                        password: $("#password").val()
+                    },
+                    success: function (data) {
+                        $("#myP1").html(data.message);
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+            });
+            //跳转至注册页面
+            $("#register").click(function () {
+                window.location.assign("http://localhost:8080/MicroBlog/registerpage");
+            });
+        });
+
+
+    </script>
+</head>
+<body>
+<div class="form-signin">
+    <div class="text-center mb-4">
+        <h1 class="word">大逼网</h1>
+    </div>
+    <div class="form-label-group">
+        <input autofocus="" type="text" id="username" class="form-control" placeholder="账号">
+    </div>
+    <div class="form-label-group">
+        <input type="password" id="password" class="form-control" placeholder="密码">
+        <div id="myP1" style="color: red">&nbsp;</div>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" value="remember-me">记住我
+        </label>
+        <span class="forget"><a href="">忘记账号</a></span>
+    </div>
+    <button class="btn btn-lg  btn-block" type="submit" id="login">登陆</button>
+    <button class="btn btn-lg  btn-block" type="submit" id="register">注册</button>
+    <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
+</div>
+</body>
+</html>

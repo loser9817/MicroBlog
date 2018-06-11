@@ -1,5 +1,7 @@
 package com.loser.web;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.loser.dto.View;
 import com.loser.entity.User;
 import com.loser.enums.Result;
 import com.loser.enums.ResultStates;
@@ -25,7 +27,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResultStates<Result> Regisert(@RequestParam(value = "username") String username,
+    public ResultStates<Result> regisert(@RequestParam(value = "username") String username,
                                          @RequestParam(value = "password") String password
     ) {
 
@@ -34,24 +36,28 @@ public class UserController {
         return userService.doRegister(user);
     }
 
+    @JsonView(View.UserDetailView.class)
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ResultStates<User> queryUserInfo(@PathVariable("id") int id){
-
+        System.out.println(userService.selectUserInfoById(id));
         return userService.selectUserInfoById(id);
     }
 
+    @JsonView(View.UserDetailView.class)
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public ResultStates<User> editUser(@RequestBody User user){
+    public ResultStates editUser(@RequestBody User user){
 
         return userService.updateUserInfo(user);
     }
 
     @RequestMapping(value = "/user/{userId}/head",
-            method = RequestMethod.POST
-//            produces = "multipart/form-data"
+            method = RequestMethod.POST,
+            produces = "multipart/form-data"
     )
     public ResultStates<String> uploadHead(@PathVariable("userId") int userId, @RequestParam("flie") MultipartFile file){
 
         return userService.updateUserHead(file, userId);
     }
+
+
 }

@@ -63,7 +63,7 @@ public class BlogService {
         return new ResultStates<Result>(Result.BLOG_ADD_ERROR);
     }
 
-    public ResultStates<Result> like(int userId, int contentId) {
+    public ResultStates<Integer> like(int userId, int contentId) {
 
         //查找id是否存在，i为1则已经点赞了，为0则还未点赞
         if (blogdao.queryLikeById(userId, contentId) == 0) {
@@ -71,17 +71,17 @@ public class BlogService {
             //还未点赞，执行点赞操作
             if (blogdao.likeBlog(userId, contentId) == 1) {
                 //点赞成功
-                return new ResultStates<Result>(Result.BLOG_LIKE_SUCCESS);
+                return new ResultStates<Integer>(Result.BLOG_LIKE_SUCCESS, blogdao.queryLikeCountByContentId(contentId));
             }
         }
         //已经点过赞了，取消点赞
         if (blogdao.deleteLike(userId, contentId) == 1) {
             //取消点赞成功
-            return new ResultStates<Result>(Result.BLOG_LIKE_CANCLE_SUCCESS);
+            return new ResultStates<Integer>(Result.BLOG_LIKE_CANCLE_SUCCESS, blogdao.queryLikeCountByContentId(contentId));
         }
 
         //点赞失败
-        return new ResultStates<Result>(Result.BLOG_LIKE_ERROR);
+        return new ResultStates<Integer>(Result.BLOG_LIKE_ERROR);
 
     }
 }

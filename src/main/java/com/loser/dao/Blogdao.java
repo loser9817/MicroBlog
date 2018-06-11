@@ -25,16 +25,16 @@ public interface Blogdao {
     List<Blog> queryAllContentAndUser();
 
     //根据微博id查询评论数
-    int queryCommentCountByContentId(int id);
+    Integer queryCommentCountByContentId(int id);
 
     //根据微博id查询点赞数
-    int queryLikeCountByContentId(int id);
+    Integer queryLikeCountByContentId(int id);
 
     //新增一个微博
     int addBlog(@Param("userId") int userId, @Param("content")String content);
     //微博添加图片
     //TODO
-    
+
 
     //根据userid和contentid查询userid的用户是否已经在contentid中点赞
     int queryLikeById(@Param("userId") int userId, @Param("contentId") int contentId);

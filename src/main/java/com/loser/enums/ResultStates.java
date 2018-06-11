@@ -1,5 +1,8 @@
 package com.loser.enums;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.loser.dto.View;
+
 /**
  * 统一返回格式
  * @param <T>为返回数据的类型
@@ -31,11 +34,13 @@ public class ResultStates<T> {
 //    }
 
     //获得Result的状态码
+    @JsonView(View.UserSimpleView.class)
     public int getState() {
         return result.getState();
     }
 
     //获得Result的信息
+    @JsonView(View.UserSimpleView.class)
     public String getMessage() {
         return result.getMessage();
     }
@@ -44,6 +49,7 @@ public class ResultStates<T> {
         this.result = result;
     }
 
+    @JsonView(View.UserSimpleView.class)
     public T getData() {
         return data;
     }

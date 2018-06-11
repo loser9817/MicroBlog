@@ -1,5 +1,8 @@
 package com.loser.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.loser.dto.View;
+
 import java.util.Date;
 
 /**
@@ -11,7 +14,7 @@ public class User {
     private String password;
 
     private int id;
-    private String realname;
+    private String nickname;
     private String address;
     private String sex;
     private Date birthday;
@@ -27,25 +30,26 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String password, String realname, String address, String sex, Date birthday, String intro) {
+    public User(String username, String password, String nickname, String address, String sex, Date birthday, String intro) {
         this.username = username;
         this.password = password;
-        this.realname = realname;
+        this.nickname = nickname;
         this.address = address;
         this.sex = sex;
         this.birthday = birthday;
         this.intro = intro;
     }
 
-    public User(int id, String username, String realname, String address, String sex, Date birthday) {
+    public User(int id, String username, String nickname, String address, String sex, Date birthday) {
         this.id = id;
         this.username = username;
-        this.realname = realname;
+        this.nickname = nickname;
         this.address = address;
         this.sex = sex;
         this.birthday = birthday;
     }
 
+    @JsonView(View.UserDetailView.class)
     public String getUsername() {
         return username;
     }
@@ -54,6 +58,7 @@ public class User {
         this.username = username;
     }
 
+    @JsonView(View.UserDetailView.class)
     public String getPassword() {
         return password;
     }
@@ -61,6 +66,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public int getId() {
         return id;
@@ -70,14 +76,16 @@ public class User {
         this.id = id;
     }
 
-    public String getRealname() {
-        return realname;
+    @JsonView(View.UserSimpleView.class)
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
+    @JsonView(View.UserDetailView.class)
     public String getAddress() {
         return address;
     }
@@ -86,6 +94,7 @@ public class User {
         this.address = address;
     }
 
+    @JsonView(View.UserDetailView.class)
     public String getSex() {
         return sex;
     }
@@ -94,6 +103,7 @@ public class User {
         this.sex = sex;
     }
 
+    @JsonView(View.UserDetailView.class)
     public Date getBirthday() {
         return birthday;
     }
@@ -102,6 +112,7 @@ public class User {
         this.birthday = birthday;
     }
 
+    @JsonView(View.UserDetailView.class)
     public String getIntro() {
         return intro;
     }
@@ -110,6 +121,7 @@ public class User {
         this.intro = intro;
     }
 
+    @JsonView(View.UserDetailView.class)
     public Date getCreateTime() {
         return createTime;
     }
@@ -118,6 +130,7 @@ public class User {
         this.createTime = createTime;
     }
 
+    @JsonView(View.UserSimpleView.class)
     public String getHead() {
         return head;
     }
@@ -132,7 +145,7 @@ public class User {
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", id=" + id +
-                ", realname='" + realname + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", address='" + address + '\'' +
                 ", sex='" + sex + '\'' +
                 ", birthday=" + birthday +

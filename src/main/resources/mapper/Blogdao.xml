@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loser.dao.Blogdao">
+    <select id="queryContentById" resultType="com.loser.dto.Blog" parameterType="int">
+        SELECT
+          u.id "user.id",
+          u.username "user.username",
+          u.head "user.head",
+          c.id "blogContent.id",
+          c.content "blogContent.content",
+          c.create_time "blogContent.createTime",
+          c.user_id "blogContent.userId"
+        FROM
+          blog_content c,
+          user u
+        WHERE
+          c.user_id=u.id AND c.id = #{id}
+    </select>
+
+    <select id="queryImgByContentId" parameterType="int" resultType="com.loser.entity.BlogImg">
+        SELECT
+          id,
+          img,
+          content_id
+        FROM
+          blog_img
+        WHERE
+          content_id = #{id}
+    </select>
+
+    <select id="queryCommentByContentId" parameterType="int" resultType="com.loser.entity.BlogComment">
+        SELECT
+          cm.id,
+          cm.comment,
+          cm.create_time,
+          cm.content_id,
+          cm.user_id,
+          u.id,
+          u.username,
+          u.head
+          FROM blog_comment cm,user u WHERE cm.user_id=u.id AND cm.content_id=#{id}
+    </select>
+
+    <select id="queryAllContentAndUser" resultType="com.loser.dto.Blog">
+        SELECT
+          u.id "user.id",
+          u.username "user.username",
+          u.head "user.head",
+          c.id "blogcontent.id",
+          c.content "blogcontent.content",
+          c.create_time "blogcontent.createTime"
+        FROM
+          blog_content c,
+          USER u
+        WHERE
+          c.user_id = u.id
+    </select>
+
+    <select id="queryCommentCountByContentId" resultType="int" parameterType="int">
+        SELECT
+          COUNT(id)
+        FROM
+          blog_comment
+        WHERE
+          content_id = #{id}
+    </select>
+
+    <select id="queryLikeCountByContentId" resultType="int" parameterType="int">
+        SELECT
+        COUNT(id)
+        FROM
+        blog_like
+        WHERE
+        content_id = #{id}
+    </select>
+
+
+    <insert id="addBlog">
+        INSERT
+            INTO
+              blog_content(content, user_id)
+            VALUES(#{content}, #{userId})
+    </insert>
+
+    <select id="queryLikeById" parameterType="int" resultType="int">
+        SELECT
+          COUNT(id)
+        FROM
+          blog_like
+        WHERE
+          user_id = #{userId} AND content_id = #{contentId}
+    </select>
+    <insert id="likeBlog">
+        INSERT IGNORE
+            INTO
+              blog_like(content_id, user_id)
+            VALUES(#{contentId}, #{userId})
+    </insert>
+    <delete id="deleteLike">
+        DELETE
+        FROM
+          blog_like
+        WHERE
+          user_id = #{userId} AND content_id = #{contentId}
+    </delete>
+</mapper>

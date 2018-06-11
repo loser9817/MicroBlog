@@ -66,6 +66,7 @@ public class UserService {
     public ResultStates<User> selectUserInfoById(int id) {
 
         User user = userdao.queryUseInforById(id);
+        System.out.println(userdao.queryUseInforById(id));
         return new ResultStates<User>(Result.USER_QUERY_SECCESS, user);
     }
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>注册</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="icon" href="../B.ico">
+	<script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript">
+    //判断密码俩次是否相等
+     function validate(){
+     	 var pwd1 = document.getElementById("password1").value;
+         var pwd2 = document.getElementById("password2").value;
+		// 对比两次输入的密码
+              if(pwd1 != pwd2) {
+                  document.getElementById("tip").innerHTML="<font color='red'>两次密码不相同</font>";
+                  document.getElementById("btn").disabled = true;
+              }
+              else {
+                  document.getElementById("tip").innerHTML="<font color='red'></font>";
+                  document.getElementById("btn").disabled = false;
+              }
+    	}
+    //运用Ajax发送账号密码到数据库
+    $(function () {
+        $("#register").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/MicroBlog/register",
+                data: {
+                    username: $("#username").val(),
+                    password: $("#password2").val()
+                },
+                success:function (data) {
+                    $("#tip").html(data.message);
+                },
+				error:function () {
+                    // $("#tip").html(data.message);
+					alert("error");
+                }
+            });
+        });
+    });
+
+
+
+    </script>
+</head>
+<body>
+<div class="form-signin">
+	<div class="text-center mb-3">
+		<h3>注册</h3>
+	</div>
+	<div class="form-label-group">
+		<input type="text" autofocus="" placeholder="账号" class="form-control" id="username">
+	</div>
+	<div class="form-label-group">
+		<input type="password"  placeholder="密码" class="form-control" id="password1">
+	</div>
+	<div class="form-label-group">
+		<input type="password"  placeholder="再次填写密码" class="form-control" id="password2" onkeyup="validate()">
+		<div id="tip" style="color: red">&nbsp;</div>
+	</div>
+	<button class="btn btn-lg btn-block" type="submit" id="register">确认</button>
+	<p class="mt-5 text-center">© 2017-2018</p>
+</div>
+</body>
+</html>

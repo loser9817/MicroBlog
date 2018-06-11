@@ -1,5 +1,7 @@
 package com.loser.web;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.loser.dto.View;
 import com.loser.enums.ResultStates;
 import com.loser.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +14,22 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
+    @JsonView(View.BlogSimpleView.class)
     @RequestMapping(value = "/blog", method = RequestMethod.GET)
     public ResultStates list() {
         ResultStates blogs = blogService.list();
-        System.out.println(blogs);
         return blogs;
     }
 
+    @JsonView(View.BlogDetailView.class)
     @RequestMapping(value = "/blog/{id}", method = RequestMethod.GET)
     public ResultStates blogInfo(@PathVariable int id) {
         ResultStates blogInfo = blogService.getBlogInfo(id);
         return blogInfo;
     }
 
+    //TODO
+    @JsonView(View.BlogSimpleView.class)
     @RequestMapping(value = "/blog" ,method = RequestMethod.POST)
     public ResultStates addBlog(@RequestParam(value = "userId",required = false,defaultValue = "0") int userId,
                                 @RequestParam(value = "content") String content){

@@ -25,7 +25,7 @@
         SELECT
           id,
           username,
-          realname,
+          nickname,
           address,
           birthday,
           sex,
@@ -45,7 +45,7 @@
         SET
           username = #{username},
           password = #{password},
-          realname = #{realname},
+          nickname = #{nickname},
           address = #{address},
           birthday = #{birthday},
           sex = #{sex}

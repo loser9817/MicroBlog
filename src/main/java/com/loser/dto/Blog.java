@@ -1,5 +1,6 @@
 package com.loser.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.loser.entity.BlogComment;
 import com.loser.entity.BlogContent;
 import com.loser.entity.BlogImg;
@@ -17,6 +18,7 @@ public class Blog {
     private int commentCount;//收藏数
     private int likeCount;//点赞数
 
+    @JsonView(View.UserSimpleView.class)
     public User getUser() {
         return user;
     }
@@ -25,6 +27,7 @@ public class Blog {
         this.user = user;
     }
 
+    @JsonView(View.BlogSimpleView.class)
     public BlogContent getBlogContent() {
         return blogContent;
     }
@@ -33,6 +36,7 @@ public class Blog {
         this.blogContent = blogContent;
     }
 
+    @JsonView(View.BlogSimpleView.class)
     public List<BlogImg> getImg() {
         return img;
     }
@@ -41,6 +45,7 @@ public class Blog {
         this.img = img;
     }
 
+    @JsonView(View.BlogDetailView.class)
     public List<BlogComment> getBlogComment() {
         return blogComment;
     }
@@ -49,6 +54,7 @@ public class Blog {
         this.blogComment = blogComment;
     }
 
+    @JsonView(View.BlogSimpleView.class)
     public int getCommentCount() {
         return commentCount;
     }
@@ -57,6 +63,7 @@ public class Blog {
         this.commentCount = commentCount;
     }
 
+    @JsonView(View.BlogSimpleView.class)
     public int getLikeCount() {
         return likeCount;
     }
